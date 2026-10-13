@@ -10,8 +10,8 @@ Uber/Lyft together. No drivers in the loop until Phase 3.
 A second mode, **Concert mode**, points the same pooling mechanic at concerts,
 sports games, and festivals — verified by event ticket instead of boarding pass.
 
-> 🌐 **Live site:** https://bharathkumarsasapu.github.io/landpool/
-> *(replace with your GitHub username after forking)*
+> 🌐 **Live site:** https://iambharath1506.github.io/landpool/
+
 
 ---
 
