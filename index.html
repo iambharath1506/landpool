@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Landpool — Split the airport ride with people on your flight</title>
+    <meta name="description" content="Landpool matches verified passengers from flights landing at the same time into shared airport rides. PNR-verified, privacy-first, fare split automatically." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap nav">
+        <a class="brand" href="#top" aria-label="Landpool home">
+          <span class="mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+          </span>
+          Landpool
+        </a>
+        <nav class="nav-links" aria-label="Sections">
+          <a href="#how">How it works</a>
+          <a href="#demo">Live demo</a>
+          <a href="#events">Concert mode</a>
+          <a href="#calculator">Savings</a>
+          <a href="#safety">Safety</a>
+          <a href="#build">Build plan</a>
+        </nav>
+        <a class="nav-cta" href="#join">Join the pilot</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ================= HERO ================= -->
+      <div class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <div class="mode-toggle" role="group" aria-label="Choose pooling mode">
+              <button type="button" id="modeAirportBtn" aria-pressed="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+                Airport mode
+              </button>
+              <button type="button" id="modeConcertBtn" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2.5 2.5 0 0 0 0 6v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2.5 2.5 0 0 0 0-6z"/><path d="M13 5v2M13 11v2M13 17v2"/></svg>
+                Concert mode
+              </button>
+            </div>
+            <h1 id="heroH1">You just landed.<br />So did <span class="hl">your ride-share.</span></h1>
+            <p class="lede" id="heroLede">Landpool groups <strong>PNR-verified passengers</strong> from flights landing at the same airport, at the same time, heading the same way — into one car, one meeting point, and <strong>one fare split four ways</strong>.</p>
+            <div class="hero-ctas">
+              <a class="btn btn-primary" href="#demo">See the live demo</a>
+              <a class="btn btn-ghost" href="#calculator">Calculate your savings</a>
+            </div>
+            <div class="hero-points">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> <span id="hp1Text">Verified flight, real passenger</span></span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> No phone numbers, ever</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Chat auto-expires after the ride</span>
+            </div>
+            <figure class="hero-photo">
+              <img src="assets/img/hero-1.jpg" alt="Travelers with rolling suitcases walking through an airport arrivals terminal" />
+              <figcaption>Every arrival hall is full of people going your way. Landpool finds them.</figcaption>
+            </figure>
+          </div>
+
+          <div>
+            <div class="board" aria-label="Live arrival board demonstration">
+              <div class="board-head">
+                <span class="t" id="boardTitle">JFK · Arrivals</span>
+                <span class="live"><span class="dot"></span> SIMULATED MATCHING</span>
+              </div>
+              <table>
+                <thead>
+                  <tr><th id="thCode">Flight</th><th id="thFrom">From</th><th id="thLand">Lands</th><th class="hide-s" id="thDest">To</th><th>Status</th></tr>
+                </thead>
+                <tbody id="boardBody"></tbody>
+              </table>
+              <div class="board-ctl">
+                <label for="windowRange"><span id="windowLabel">Arrival window</span> <output id="windowOut">±45 min around your landing</output></label>
+                <input type="range" id="windowRange" min="15" max="90" step="15" value="45" />
+                <div class="pool-summary" id="poolSummary"></div>
+                <p class="board-note" id="boardNote">Matching runs across <b>every flight</b> landing inside the window — not just yours. A wider window means a bigger pool and a cheaper seat. Delays slide you into the next group automatically.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= HOW IT WORKS ================= -->
+      <section class="block" id="how">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="kick">How it works</span>
+            <h2>From touchdown to shared ride in five steps</h2>
+            <p>No app-store treasure hunt at the curb, no shouting your suburb at a taxi line. The whole group forms before you reach baggage claim.</p>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h6M7 13h10M7 17h4"/></svg></div>
+              <span class="n">STEP 1</span>
+              <h3 id="step1Title">Verify with your PNR</h3>
+              <p id="step1Body">Scan your boarding pass or forward the booking email. The PNR proves you're a real passenger on a real flight — and it's deleted the moment it's checked.</p>
+            </div>
+            <div class="step">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+              <span class="n">STEP 2</span>
+              <h3>We open your window</h3>
+              <p id="step2Body">Every flight landing within ±45 minutes of yours joins one matching pool. Three flights dumping 400 people at once is a feature, not chaos.</p>
+            </div>
+            <div class="step">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+              <span class="n">STEP 3</span>
+              <h3>Accept your group</h3>
+              <p>Travelers headed your direction get an invite. You see first names and verified badges only — nobody joins your group uninvited.</p>
+            </div>
+            <div class="step">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+              <span class="n">STEP 4</span>
+              <h3>Chat &amp; call, privately</h3>
+              <p>Message the group or one-on-one, call like WhatsApp — but numbers stay hidden and everything vanishes when the trip ends.</p>
+            </div>
+            <div class="step">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+              <span class="n">STEP 5</span>
+              <h3>Meet, ride, split</h3>
+              <p id="step5Body">One pinned meeting point per terminal — "Zone C, Pillar 4." The group books one Uber or Lyft together and the fare splits in the app. Done.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= DEMO ================= -->
+      <section class="block" id="demo">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="kick">Live demo</span>
+            <h2>Watch a group form in real time</h2>
+            <p id="demoLede">A simulated Landpool chat: four verified passengers, three different flights, one destination — and not a single phone number exchanged.</p>
+          </div>
+          <div class="demo-grid">
+            <div class="phone-col">
+              <div class="phone" aria-label="Simulated Landpool group chat">
+                <div class="phone-screen">
+                  <div class="app-bar">
+                    <div class="row1">
+                      <span class="appname" id="appName">JFK → Midtown rideshare</span>
+                      <span class="shield-chip">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span id="verifyChip">PNR-verified</span>
+                      </span>
+                    </div>
+                    <div class="trip" id="tripLine">POOL W7 · 4 RIDERS · ETA MEET 14:52 · ZONE C</div>
+                  </div>
+                  <div class="chat" id="chatLog" aria-live="polite"></div>
+                  <div class="typing" id="typing"><i></i><i></i><i></i></div>
+                  <div class="call-bar" id="callBar" hidden>
+                    <span class="avatar">PS</span>
+                    <span><b>Priya S.</b> · voice call<br /><span style="opacity:.65;font-size:11.5px;">Number hidden · ends with trip</span></span>
+                    <button class="end" id="endCall" type="button">End</button>
+                  </div>
+                  <form class="chat-input" id="chatForm">
+                    <input id="chatText" type="text" placeholder="Message the group…" autocomplete="off" aria-label="Message the group" />
+                    <button type="submit">Send</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="demo-side">
+              <h3>Privacy is the product</h3>
+              <p>Sharing a car with strangers only works if people feel safe. So Landpool is built privacy-first — the chat and calls are a feature, but <em>what they hide</em> is the point.</p>
+              <div class="demo-btns">
+                <button class="btn btn-primary" id="replayBtn" type="button">Replay the group forming</button>
+                <button class="btn btn-ghost" id="callBtn" type="button">Try a masked voice call</button>
+              </div>
+              <ul class="privacy-list">
+                <li>
+                  <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/><line x1="2" y1="2" x2="22" y2="22"/></svg></span>
+                  <div><b>No phone numbers, ever</b><span>Chat and VoIP calls run inside the app, WhatsApp-style. Your real number is never shown to anyone.</span></div>
+                </li>
+                <li>
+                  <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="4"/><path d="M2.5 20.5v-.6a7.5 7.5 0 0 1 15 0v.6"/><path d="m16.5 12.5 2 2 4-4"/></svg></span>
+                  <div><b>Masked until mutual opt-in</b><span>First name + verified-traveler badge is all anyone sees. Full profiles unlock only when both sides agree.</span></div>
+                </li>
+                <li>
+                  <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+                  <div><b>Trip-scoped, then gone</b><span>Group chat, 1-on-1 threads and call history auto-expire when the ride ends. No lingering contact with strangers.</span></div>
+                </li>
+                <li>
+                  <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+                  <div><b>Women-only pools, block &amp; report</b><span>Opt into women-only matching at verify time. One tap blocks a rider and flags the pool to our safety team.</span></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CONCERT MODE ================= -->
+      <section class="block" id="events">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="kick">One platform · two modes</span>
+            <h2>Concert mode: the same pool, pointed at the show</h2>
+            <p>The worst ride of the night isn't always to the airport — it's out of a stadium at 10:40 PM, with 20,000 people surge-pricing at once. So the Landpool mechanic gets a second mode: three parts swapped, everything else identical. Flip the toggle at the top of this page and the board, the chat and the savings all switch with it.</p>
+          </div>
+          <div class="modes-grid">
+            <div class="mode-card">
+              <span class="mc-tag">MODE 1 · AIRPORT</span>
+              <h3>Landing → home</h3>
+              <p>Pools form around flight banks, before baggage claim.</p>
+              <ul class="swap-list">
+                <li><span class="k">Verify</span><span class="v"><b>PNR / boarding pass</b> — a real passenger on a real flight</span></li>
+                <li><span class="k">Window</span><span class="v"><b>±45 min</b> around your landing, across every flight</span></li>
+                <li><span class="k">Meet</span><span class="v">Pinned terminal point — <b>"Zone C, Pillar 4"</b></span></li>
+                <li><span class="k">Ride</span><span class="v">One Uber or Lyft, booked by the group, fare split in the app</span></li>
+              </ul>
+              <button class="btn btn-ghost preview-btn" type="button" data-setmode="airport">Preview Airport mode</button>
+            </div>
+            <div class="mode-card dark">
+              <span class="mc-tag">MODE 2 · CONCERT</span>
+              <h3>Encore → home</h3>
+              <p>Pools form around final whistles and encores, before the exits jam.</p>
+              <ul class="swap-list">
+                <li><span class="k">Verify</span><span class="v"><b>Event ticket</b> — a real seat at a concert, game or festival</span></li>
+                <li><span class="k">Window</span><span class="v"><b>±45 min</b> around the posted end time, across every venue in the city</span></li>
+                <li><span class="k">Meet</span><span class="v">Official venue pickup zone — <b>"Gate B, 7th Ave exit"</b></span></li>
+                <li><span class="k">Ride</span><span class="v">One Uber or Lyft, booked by the group, fare split in the app</span></li>
+              </ul>
+              <button class="btn preview-btn" type="button" data-setmode="concert">Preview Concert mode</button>
+            </div>
+          </div>
+          <p class="same-strip">Same verified strangers. Same private chat and masked calls. Same automatic split. <b>Neither mode employs drivers</b> — Landpool arranges the people; Uber and Lyft do the driving, just like they already do. Our own drivers come later, once the pools are a hit.</p>
+        </div>
+      </section>
+
+      <!-- ================= CALCULATOR ================= -->
+      <section class="block" id="calculator">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="kick">The math</span>
+            <h2>What one shared car does to a $72 fare</h2>
+            <p id="calcLede">Airport rides are priced for one passenger and priced like it. Pool four verified travelers and the same seat costs less than the airport coffee run. Try it:</p>
+          </div>
+          <div class="calc">
+            <div class="calc-in">
+              <label for="fareRange">Typical solo fare from the airport <output id="fareOut">$72</output></label>
+              <input type="range" id="fareRange" min="25" max="140" step="1" value="72" />
+              <label>How many riders split it?</label>
+              <div class="seg" id="riderSeg" role="group" aria-label="Number of riders">
+                <button type="button" data-riders="1">Solo</button>
+                <button type="button" data-riders="2">2 riders</button>
+                <button type="button" data-riders="3">3 riders</button>
+                <button type="button" data-riders="4" aria-pressed="true">4 riders</button>
+              </div>
+              <label>Pooling assumptions</label>
+              <p style="font-size:13.5px;color:var(--ink-2);">Larger groups book a slightly bigger vehicle, so the total fare rises ~8% per extra rider — the split still wins by a mile. One hand bag that fits under the seat keeps everyone in a standard sedan.</p>
+            </div>
+            <div class="calc-out" aria-live="polite">
+              <div class="big">
+                <span class="solo" id="soloOut">$72</span>
+                <span class="shared" id="sharedOut">$19</span>
+                <span class="per">per person</span>
+              </div>
+              <span class="save-pill" id="saveOut">You save $53 (74%)</span>
+              <table class="split-table">
+                <thead><tr><th>Rider</th><th id="splitColHead">Flight</th><th class="r">Pays</th></tr></thead>
+                <tbody id="splitBody"></tbody>
+              </table>
+              <div class="bars">
+                <div class="bar-row"><span>Solo ride</span><div class="bar-track"><div class="bar-fill solo" id="barSolo"></div></div><span class="mono" id="barSoloVal"></span></div>
+                <div class="bar-row"><span>Your share</span><div class="bar-track"><div class="bar-fill shared" id="barShared"></div></div><span class="mono" id="barSharedVal"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FEATURE ROWS ================= -->
+      <section class="block" id="safety">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="kick">Why it works</span>
+            <h2>Built for the three problems that kill ride-sharing</h2>
+          </div>
+          <div class="feat-rows">
+            <div class="feat">
+              <div class="feat-media"><img src="assets/img/hero-2.jpg" alt="Two travelers greeting each other with smiles at an airport meeting point" /></div>
+              <div>
+                <h3>Trust: everyone in the car was on a plane</h3>
+                <p>The PNR gate is the moat. BlaBlaCar can't verify a flight; Uber doesn't try. On Landpool, every rider proved minutes ago that they hold a real booking on a real flight landing at this airport.</p>
+                <ul>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Boarding-pass scan or booking-email forward</b> — no airline API needed, works at any airport on day one.</span></li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>PNR is checked, then deleted.</b> It's proof, not data we keep.</span></li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Live trip sharing</b> with your own contacts from meet point to drop-off.</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="feat">
+              <div class="feat-media"><img src="assets/img/hero-3.jpg" alt="Cars and travelers at an airport ride-service pickup zone at dusk" /></div>
+              <div>
+                <h3>Logistics: one pillar, one car, zero curb chaos</h3>
+                <p>Airport pickups fail on the last 100 meters. Landpool gives every pool a single pinned meeting point per terminal — and the driver stays out of your chat entirely. The group coordinates here, then books one Uber or Lyft together.</p>
+                <ul>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Designated meet points</b> — "Terminal 4, Zone C, Pillar 4" — with a photo of the exact spot.</span></li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Delay-proof windows:</b> live flight tracking slides late flights into the next pool automatically.</span></li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>One Uber or Lyft for the group</b> — fare splits in the app, no curb-side IOUs.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-band">
+            <div class="stat"><div class="v">$60–80</div><div class="k">Typical solo ride, JFK → Manhattan</div></div>
+            <div class="stat"><div class="v">~$18</div><div class="k">What shared riders pay on proven shuttle models</div></div>
+            <div class="stat"><div class="v">3–5×</div><div class="k">Bigger pool when matching spans all flights in the window</div></div>
+            <div class="stat"><div class="v">0</div><div class="k">Phone numbers exchanged, ever</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= BUILD PLAN ================= -->
+      <section class="block" id="build">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="kick">Development plan</span>
+            <h2>How we build and launch it</h2>
+            <p>The tech is the easy part — matching, chat and payments are solved problems. The plan spends its effort where this idea actually lives or dies: density at one airport, trust, and pickup logistics.</p>
+          </div>
+          <div class="road">
+            <div class="phase now">
+              <span class="tag">PHASE 1 · MVP</span>
+              <h3>One airport, proven flow</h3>
+              <ul>
+                <li>Mobile app (iOS + Android) with boarding-pass scan verification</li>
+                <li>Matching engine: airport + ±45-min window + destination zone</li>
+                <li>Group chat, masked 1-on-1 chat and in-app voice calls</li>
+                <li>Meet-point pins; the group books one Uber/Lyft together, fare split in-app — no drivers, no fleet</li>
+                <li>Launch at one high-volume airport; seed every arriving flight bank</li>
+              </ul>
+            </div>
+            <div class="phase">
+              <span class="tag">PHASE 2 · DENSITY</span>
+              <h3>Make pools form every time</h3>
+              <ul>
+                <li>Live flight-tracking integration — delays re-pool automatically</li>
+                <li>Women-only pools and verified co-traveler preferences</li>
+                <li>Concert mode: ticket-verified pools for concerts, games and festivals</li>
+                <li>Venue partnerships: official pickup zones at stadiums and arenas</li>
+                <li>Pre-landing grouping: match forms mid-flight, ready at the gate</li>
+                <li>Second and third airport, same playbook</li>
+              </ul>
+            </div>
+            <div class="phase">
+              <span class="tag">PHASE 3 · SCALE</span>
+              <h3>Every arrival hall</h3>
+              <ul>
+                <li>Recruit our own drivers at airports and venues where pools already form daily</li>
+                <li>Airline and booking-site partnerships (verify at checkout)</li>
+                <li>Dynamic pricing that fills cars without surge games</li>
+                <li>Corporate and crew travel pools</li>
+                <li>International rollout, starting where the pain is worst</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq">
+            <details class="faq-item">
+              <summary>How do you verify a PNR without airline APIs?</summary>
+              <p>Airlines don't offer open PNR lookups, so we don't ask them. You scan your boarding pass (on-device OCR reads name, flight and date) or forward your booking-confirmation email, which we parse to the same fields. Either proves a real booking in under ten seconds — and the PNR itself is deleted right after verification.</p>
+            </details>
+            <details class="faq-item">
+              <summary>My flight landed late. Do I lose my group?</summary>
+              <p>No. Landpool tracks live flight status, so a delayed arrival slides your window forward and you land in the next pool headed your way. The group chat updates everyone automatically — no re-booking, no curb-side panic.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Why not just match people on my own flight?</summary>
+              <p>Because one flight rarely fills a car to the same neighborhood. Matching across every flight landing within ±45 minutes makes the pool 3–5× bigger, so groups form in minutes instead of maybe. Your PNR is the trust layer; the time window is the matching layer.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Is this just Uber Pool at the airport?</summary>
+              <p>Shared airport shuttles (like Uber Shuttle at JFK, ~$18 vs $60–80 solo) proved travelers will share. What nobody has built is the social layer: verified fellow passengers, an invite-only group, private chat and calls, and one agreed meeting point. That's the part Landpool adds — and it runs no cars of its own: the group books the ride on Uber or Lyft, exactly like today.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Who actually drives?</summary>
+              <p>Nobody from Landpool — at first. The platform's job is arranging the people: your group forms, chats privately, and agrees on a meeting point, then books one regular Uber or Lyft together and splits the fare in that app. The driver never joins your chat. If the pools become a hit, a later phase recruits our own vetted drivers — matching comes first, driving comes second.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Does this work for concerts and games?</summary>
+              <p>Yes — that's Concert mode. Swap the PNR for your event ticket, the arrival window for the ±45 minutes around the show's end, and the terminal pillar for the venue's official pickup zone. Flip the Airport / Concert toggle at the top of this page and the whole demo — board, chat, savings — switches with it.</p>
+            </details>
+            <details class="faq-item">
+              <summary>What does it cost?</summary>
+              <p>Riders split the actual fare; Landpool takes a small booking fee per seat. With four riders, a $72 solo ride lands around $19 each including the fee — less than half the solo price even before anyone's time is counted.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= JOIN ================= -->
+      <div class="wrap">
+        <div class="join" id="join">
+          <div>
+            <h2>Be on the first flight bank we open.</h2>
+            <p>The pilot launches at one airport, on purpose — density beats coverage. Tell us where you land most and we'll open your arrival hall sooner. Early riders get founding-member pricing for life.</p>
+          </div>
+          <form id="joinForm">
+            <div>
+              <label for="jName">Name</label>
+              <input id="jName" name="name" type="text" required placeholder="Your name" autocomplete="name" />
+            </div>
+            <div>
+              <label for="jEmail">Email</label>
+              <input id="jEmail" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
+            </div>
+            <div>
+              <label for="jAirport">Airport you fly into most</label>
+              <select id="jAirport" name="airport" required>
+                <option value="">Choose an airport…</option>
+                <option>New York JFK</option>
+                <option>Los Angeles LAX</option>
+                <option>Chicago ORD</option>
+                <option>San Francisco SFO</option>
+                <option>Atlanta ATL</option>
+                <option>Dallas DFW</option>
+                <option>Denver DEN</option>
+                <option>Seattle SEA</option>
+                <option>Miami MIA</option>
+                <option>Cincinnati CVG</option>
+                <option>Somewhere else</option>
+              </select>
+            </div>
+            <button class="submit" type="submit">Request pilot invite</button>
+            <p class="fine">Opens your mail app with the request pre-filled — nothing is sent until you hit send.</p>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site">
+      <div class="wrap foot">
+        <span><b style="color:var(--ink)">Landpool</b> — land together, ride together.</span>
+        <span>Concept &amp; development plan · PNR-verified · Privacy-first · Fare split automatically</span>
+      </div>
+    </footer>
+
+    <script src="assets/js/app.js" defer></script>
+  </body>
+</html>
